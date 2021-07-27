@@ -8,12 +8,21 @@ pipeline {
                 withGradle {
                     sh './gradlew assemble'        
                 }
-                
+            post {
+                sucessfull{
+                    archiveArtifacts artifacts: 'build/libs/*.jar'        
+                }        
+            }    
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing....'
             }
         }
-        stage('Archive') {
+        stage('Deploy') {
             steps {
-                archiveArtifacts artifacts: 'builds/libs/*.jar'
+                echo 'Deploying.... '
             }
         }
     }
